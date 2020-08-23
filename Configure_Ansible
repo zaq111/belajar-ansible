@@ -1,0 +1,13 @@
+INSTALL & CONFIGURE ANSIBLE //inventory dan ansible.cfg
+===============================================================================
+* Install dan configure ansible.cfg dan inventory
+* Install hanya yum install ansible
+* User yang digunakan admin
+* Lokasi /home/admin/ansible (jadi buat folder ansible)
+* Set ansible.cfg - Lokasi roles di /home/admin/ansible/roles
+* Set Inventory sbb
+	- group prod untuk node1.example.com
+	- group dev untuk node2.example.com
+	- group balancer untuk node3.example.com dan node4.example.com
+	- group test untuk node5.domain12.example.com
+	- group webservers merupakan bagian dari group proxy
