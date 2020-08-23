@@ -9,5 +9,4 @@ INSTALL & CONFIGURE ANSIBLE //inventory dan ansible.cfg
 	- group prod untuk node1.example.com
 	- group dev untuk node2.example.com
 	- group balancer untuk node3.example.com dan node4.example.com
-	- group test untuk node5.domain12.example.com
 	- group webservers merupakan bagian dari group proxy
