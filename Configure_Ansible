@@ -10,3 +10,53 @@ INSTALL & CONFIGURE ANSIBLE //inventory dan ansible.cfg
 	- group dev untuk node2.example.com
 	- group balancer untuk node3.example.com dan node4.example.com
 	- group webservers merupakan bagian dari group proxy
+
+//adduser
+useradd admin
+
+//kasi password
+echo "password" | passwd admin --stdin
+
+//buat folder kerja ansible
+mkdir /home/admin/ansible
+
+//install ansible
+yum install ansible
+
+//buat inventory
+vim /home/admin/ansible/inventory
+	vim:
+	[prod]
+	node1.example.com
+
+	[dev]
+	node2.example.com
+
+	[balancer]
+	node3.example.com
+	node4.example.com
+
+	[webserver:children]
+	balancer
+	###
+
+//buat ansible.cfg
+vim /home/admin/ansible/ansible.cfg
+	vim:
+	[defaults]
+	inventory = /home/admin/ansible/inventory
+	roles_path = /home/admin/ansible/roles/
+	###
+
+//Tambah user di sudoers.d/ansible 
+//(Cek dulu pas exam ada apa tidak, klo tidak, maka tambahin)
+//Cara ceknya ketik ssh node1.example.com (pada saat login sebagai user admin bukan root)
+//atau bisa juga ketik ssh admin@node1.example.com, klo diminta password, maka ketik
+//command dibawah ini
+ansible all -m copy -u root -k -a 'content="admin ALL=(ALL) NOPASSWD:ALL" dest=/etc/sudoers.d/ansible' 
+
+//Harus ADA, ini untuk install python3 di remote node
+ansible all -m shell -a 'sudo yum install python3 -y --allowerasing'
+
+//verifikasi
+ansible all -m ping
